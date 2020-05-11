@@ -15,87 +15,75 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class premiereFenetre extends JFrame {
+public class premiereFenetre{
 
 	private JPanel contentPane;
-	
-   static int  nombreDeLignes;
-    static int nombreDeColonnes;
-    static int nombreDeBombes;
-    
+	public JFrame frame;
+	public int  nombreDeLignes;
+    public int nombreDeColonnes;
+    public int nombreDeBombes;
+    public static boolean selected=false;
     
     JComboBox comboBox = new JComboBox();
     JComboBox comboBox_1 = new JComboBox();
     JComboBox comboBox_2 = new JComboBox();
 
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					premiereFenetre frame = new premiereFenetre();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
 	
 	public premiereFenetre() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		frame=new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 450, 300);
+		//contentPane = new JPanel();
+		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//frame.setContentPane(contentPane);
+		frame.getContentPane().setLayout(null);
+		frame.setVisible(true);
 		
-		Image img = new ImageIcon(this.getClass().getResource("mybackground.jpg")).getImage();
+		//ImageIcon img = new ImageIcon(premiereFenetre.class.getResource("mybackground.jpg"));
 		
 		JLabel lblNewLabel = new JLabel("Nombre de lignes :");
 		lblNewLabel.setBounds(63, 48, 114, 14);
-		contentPane.add(lblNewLabel);
+		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_2 = new JLabel("Nombre de colonnes : ");
 		lblNewLabel_2.setBounds(63, 101, 143, 14);
-		contentPane.add(lblNewLabel_2);
+		frame.getContentPane().add(lblNewLabel_2);
 		
 		
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"}));
 		comboBox.setBounds(216, 44, 86, 22);
-		contentPane.add(comboBox);
+		frame.getContentPane().add(comboBox);
 		
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"}));
 		comboBox_1.setBounds(216, 97, 86, 22);
-		contentPane.add(comboBox_1);
+		frame.getContentPane().add(comboBox_1);
 		
 		JButton btnNewButton = new JButton("Jouer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				window wind = new window();
-				wind.setVisible(true);
+				selected=true;
+				//window wind = new window();
+			//	wind.setVisible(true);
 				
 			}
 		});
 		
 		btnNewButton.setBounds(190, 216, 120, 34);
-		contentPane.add(btnNewButton);
+		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("Nombre de bombes :");
 		lblNewLabel_3.setBounds(63, 146, 143, 14);
-		contentPane.add(lblNewLabel_3);
+		frame.getContentPane().add(lblNewLabel_3);
 		
 		
 		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"}));
 		comboBox_2.setBounds(216, 142, 86, 22);
-		contentPane.add(comboBox_2);
+		frame.getContentPane().add(comboBox_2);
 		
 		JLabel lblNewLabel_4 = new JLabel("                   Personnaliser l'application");
 		lblNewLabel_4.setBounds(92, 11, 252, 14);
-		contentPane.add(lblNewLabel_4);
+		frame.getContentPane().add(lblNewLabel_4);
 		
 		
 	}
@@ -105,14 +93,18 @@ public class premiereFenetre extends JFrame {
 	{
 		if(event.getSource() == comboBox)
 		{
+
+			System.out.println(comboBox.getSelectedItem());
 			nombreDeLignes = (int) comboBox.getSelectedItem();
 		}
 		if(event.getSource() == comboBox_1)
 		{
+			System.out.println(comboBox_1.getSelectedItem());
 			nombreDeColonnes = (int) comboBox_1.getSelectedItem();
 		}
 		if(event.getSource()==comboBox_2)
 		{
+			System.out.println(comboBox_2.getSelectedItem());
 			nombreDeBombes = (int) comboBox_2.getSelectedItem();
 		}
 	}
