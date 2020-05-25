@@ -4,12 +4,14 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class window {
-	private JFrame frame;
+	public JFrame frame;
 	 //private int nb_bombs;
 	static JLabel [][] labels;
 	boolean fin=false;
+	boolean won=false;
 	boolean start=false;
 	int lignes;
 	int colonnes;
@@ -28,7 +30,8 @@ public class window {
 	private void show() {
 		
 		frame = new JFrame();
-		frame.setSize(colonnes*w+17+200, lignes*w +40);
+		frame.getContentPane().setBackground(new Color(48, 53, 59));
+		frame.setSize(colonnes*w+17+20, lignes*w +40+20);
 		//frame.setBounds(10,10, 400, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
@@ -38,7 +41,7 @@ public class window {
 		for(int i=0;i<lignes;i++) {//jlabel tab
 			for(int j=0;j<colonnes;j++) {
 				labels[i][j]=new JLabel();
-				labels[i][j].setBounds(j*w,i*w, w, w);
+				labels[i][j].setBounds(j*w+10,i*w+10, w, w);
 				frame.getContentPane().add(labels[i][j]);
 				setIcon(i,j,new ImageIcon(window.class.getResource("/void 44.jpg")));
 				
@@ -47,50 +50,25 @@ public class window {
 		frame.getContentPane().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				test_mouse(e.getX(),e.getY(),e);
+				int x=e.getX();
+				int y=e.getY();
+				if(x>=10 && y>=10 && x<=(10+w*colonnes)&&y<=(10+w*lignes)) {
+					test_mouse(x,y,e);
+					int nb=test_won(lignes,colonnes);
+					if (nb==nb_bombs) {
+						zone.reveal_all(-1,-1);
+						won=true;
+						fin=true;
+					}
+				}
 			}
 		});
-		
-		/*JPanel panel = new JPanel();
-		panel.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(105, 105, 105), null, null, null));
-		panel.setBackground(Color.DARK_GRAY);
-		panel.setBounds(406, 0,147, 352);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
-		
-		textField = new JTextField();
-		textField.setBounds(30, 28, 86, 20);
-		panel.add(textField);
-		textField.setColumns(10);
-		
-		JButton start = new JButton("New button");
-		start.setActionCommand("start");
-		start.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		start.setBounds(30, 169, 89, 23);
-		panel.add(start);
-		
-		JButton btnNewButton_1 = new JButton("New button");
-		btnNewButton_1.setBounds(30, 270, 89, 23);
-		panel.add(btnNewButton_1);
-		
-		textField_1 = new JTextField();
-		textField_1.setBounds(30, 69, 86, 20);
-		panel.add(textField_1);
-		textField_1.setColumns(10);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(30, 107, 86, 20);
-		panel.add(textField_2);
-		textField_2.setColumns(10);*/
 		
 	}
 	
 	public void test_mouse(int x,int y,MouseEvent e) {
-		int i=y/w;//lignes
-		int j=x/w;//colonnes
+		int i=(y-10)/w;//lignes
+		int j=(x-10)/w;//colonnes
 		if(e.getButton()==1) {//left button
 			if(!start) {
 				zone Zone=new zone(nb_bombs ,lignes,colonnes,i,j);
@@ -119,6 +97,17 @@ public class window {
 					}
 				}
 			}
+	}
+	public static int test_won(int l,int c) {
+		int nb=0;
+		for(int i=0;i<l;i++) {
+			for(int j=0;j<c;j++) {
+				if(!zone.c_table[i][j].is_revealed) {
+					nb++;
+				}
+			}
+		}
+		return nb;
 	}
 	public static void setIcon(int i,int j,ImageIcon img) {
 		labels[i][j].setIcon(img);

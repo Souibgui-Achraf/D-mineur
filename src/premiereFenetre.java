@@ -19,10 +19,10 @@ public class premiereFenetre{
 
 	private JPanel contentPane;
 	public JFrame frame;
-	public int  nombreDeLignes;
+	public int nombreDeLignes;
     public int nombreDeColonnes;
     public int nombreDeBombes;
-    public static boolean selected=false;
+    public boolean selected=false;
     
     JComboBox comboBox = new JComboBox();
     JComboBox comboBox_1 = new JComboBox();
@@ -34,13 +34,10 @@ public class premiereFenetre{
 		frame=new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setBounds(100, 100, 450, 300);
-		//contentPane = new JPanel();
-		//contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//frame.setContentPane(contentPane);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
 		
-		//ImageIcon img = new ImageIcon(premiereFenetre.class.getResource("mybackground.jpg"));
 		
 		JLabel lblNewLabel = new JLabel("Nombre de lignes :");
 		lblNewLabel.setBounds(63, 48, 114, 14);
@@ -51,62 +48,43 @@ public class premiereFenetre{
 		frame.getContentPane().add(lblNewLabel_2);
 		
 		
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"}));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"--","3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"}));
 		comboBox.setBounds(216, 44, 86, 22);
 		frame.getContentPane().add(comboBox);
 		
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"}));
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"--","3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17","18","19","20","21","22","23","24","25"}));
 		comboBox_1.setBounds(216, 97, 86, 22);
 		frame.getContentPane().add(comboBox_1);
 		
 		JButton btnNewButton = new JButton("Jouer");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				nombreDeLignes =Integer.parseInt((String) comboBox.getSelectedItem());
+				nombreDeColonnes =Integer.parseInt((String) comboBox_1.getSelectedItem());
+				nombreDeBombes =Integer.parseInt((String) comboBox_2.getSelectedItem());
 				selected=true;
-				//window wind = new window();
-			//	wind.setVisible(true);
-				
+			  
 			}
 		});
 		
-		btnNewButton.setBounds(190, 216, 120, 34);
+		btnNewButton.setBounds(155, 205, 120, 34);
 		frame.getContentPane().add(btnNewButton);
 		
 		JLabel lblNewLabel_3 = new JLabel("Nombre de bombes :");
 		lblNewLabel_3.setBounds(63, 146, 143, 14);
 		frame.getContentPane().add(lblNewLabel_3);
-		
-		
-		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"--", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17"}));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"--","1"}));
+		for(int i=2;i<=100;i++) {
+			comboBox_2.addItem(Integer.toString(i));
+		}
 		comboBox_2.setBounds(216, 142, 86, 22);
 		frame.getContentPane().add(comboBox_2);
 		
-		JLabel lblNewLabel_4 = new JLabel("                   Personnaliser l'application");
+		JLabel lblNewLabel_4 = new JLabel("                   Personnaliser votre jeu !");
 		lblNewLabel_4.setBounds(92, 11, 252, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		
-	}
-	
-	// la reaction des comboBox(s)
-	public void ItemStateChanged(ItemEvent event)
-	{
-		if(event.getSource() == comboBox)
-		{
-
-			System.out.println(comboBox.getSelectedItem());
-			nombreDeLignes = (int) comboBox.getSelectedItem();
-		}
-		if(event.getSource() == comboBox_1)
-		{
-			System.out.println(comboBox_1.getSelectedItem());
-			nombreDeColonnes = (int) comboBox_1.getSelectedItem();
-		}
-		if(event.getSource()==comboBox_2)
-		{
-			System.out.println(comboBox_2.getSelectedItem());
-			nombreDeBombes = (int) comboBox_2.getSelectedItem();
-		}
 	}
 	
 	

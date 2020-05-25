@@ -53,10 +53,10 @@ public class zone {
 				piece p=c_table[i][j];
 				p.is_revealed=true ;
 				if(p.has_bomb) {
-					if(i==x && j==y) 
-						p.icon=new ImageIcon(window.class.getResource("/bombed 44.jpg"));
-					if(p.is_flagged ) 
+					if(p.is_flagged || x==-1) 
 						p.icon=new ImageIcon(window.class.getResource("/isbombed 44.jpg"));
+					else if(i==x && j==y) 
+						p.icon=new ImageIcon(window.class.getResource("/bombed 44.jpg"));
 				}
 				else if(p.is_flagged && !p.has_bomb) 
 					 p.icon=new ImageIcon(window.class.getResource("/wrongflag 44.jpg"));
