@@ -1,5 +1,7 @@
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Timer;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -53,13 +55,17 @@ public class window {
 				int x=e.getX();
 				int y=e.getY();
 				if(x>=10 && y>=10 && x<=(10+w*colonnes)&&y<=(10+w*lignes)) {
+					frame.getContentPane().setBackground(new Color(115, 115, 115));
 					test_mouse(x,y,e);
 					int nb=test_won(lignes,colonnes);
 					if (nb==nb_bombs) {
 						zone.reveal_all(-1,-1);
 						won=true;
 						fin=true;
+						
 					}
+					change_background(new Color(48,53,59),300);
+					
 				}
 			}
 		});
@@ -109,7 +115,21 @@ public class window {
 		}
 		return nb;
 	}
+	public void change_background(Color r,int t) {//change to r for t ms
+		new Timer().schedule(
+				new java.util.TimerTask() { @Override 
+					public void run() { 
+					frame.getContentPane().setBackground(r); } }, t );
+				
+	}
 	public static void setIcon(int i,int j,ImageIcon img) {
 		labels[i][j].setIcon(img);
+	}
+	static void sleep(int x) {//timer sleeps for x ms
+		try {
+		    TimeUnit.MILLISECONDS.sleep(x);
+		} catch (InterruptedException ie) {
+		    Thread.currentThread().interrupt();
+		}
 	}
 }
